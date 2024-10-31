@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/HomeView.vue';
 import Profile from '../views/profile.vue';
 import Login from '../components/Login.vue';
 import Register from '../components/Register.vue';
+import ApartmentsView from '../views/ApartmentsView.vue';
 
 const routes = [
-  { path: '/', name: 'Home', component: Home },
+  // { path: '/', name: 'Home', component: Home },
+  {path: '/', name: 'Apartments', component: ApartmentsView},
   { path: '/login', name: 'Login', component: Login },
   { path: '/register', name: 'Register', component: Register },
   { path: '/profile', name: 'Profile', component: Profile, meta: { requiresAuth: true } }

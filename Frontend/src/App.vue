@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav>
-      <router-link to="/">Home</router-link>
+      <router-link to="/">Apartamentos</router-link>
       <router-link v-if="!userStore.user" to="/login">Login</router-link>
       <router-link v-if="!userStore.user" to="/register">Register</router-link>
       <button v-if="userStore.user" @click="userStore.logout">Logout</button>
@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useUserStore } from '@/stores/userStore';
+import { useUserStore } from './stores/userStore';
 
 export default defineComponent({
   setup() {

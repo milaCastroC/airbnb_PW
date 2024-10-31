@@ -1,3 +1,4 @@
+<!-- Register.vue -->
 <template>
     <form @submit.prevent="handleRegister">
       <h2>Register</h2>
@@ -14,7 +15,7 @@
   
   <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import { useUserStore } from '@/stores/userStore';
+import { useUserStore } from '../stores/userStore';
   
   export default defineComponent({
     setup() {
@@ -31,8 +32,5 @@
     }
   });
   </script>
-  
-  <style scoped>
 
-  </style>
   

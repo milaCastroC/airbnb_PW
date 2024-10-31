@@ -15,7 +15,7 @@
   
   <script lang="ts">
   import { defineComponent, ref, onMounted } from 'vue';
-  import { useUserStore } from '@/stores/userStore';
+import { useUserStore } from '../stores/userStore';
   
   export default defineComponent({
     name: 'Profile',

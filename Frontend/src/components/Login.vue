@@ -16,7 +16,7 @@
   
   <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import { useUserStore } from '@/stores/userStore';
+import { useUserStore } from '../stores/userStore';
   
   export default defineComponent({
     name: 'Login',
@@ -33,7 +33,5 @@
     },
   });
   </script>
-  
-  <style scoped>
-  </style>
+
   

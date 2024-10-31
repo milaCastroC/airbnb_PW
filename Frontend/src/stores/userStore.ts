@@ -28,6 +28,7 @@ export const useUserStore = defineStore('user', () => {
 
   async function register(name: string, email: string, password: string) {
     const newUser:User = {
+        id: "1",
         name: name,
         email: email,
         password: password,
@@ -44,20 +45,6 @@ export const useUserStore = defineStore('user', () => {
       alert('Registration failed');
     }
   }
-
-//   async function register(name: string, email: string, password: string) {
-//     const response = await fetch('https://mockapi.io/users', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ name, email, password }),
-//     });
-//     if (response.ok) {
-//       alert('Registration successful! Please log in.');
-//       router.push({ name: 'Login' });
-//     } else {
-//       alert('Registration failed');
-//     }
-//   }
 
   function logout() {
     user.value = null;
