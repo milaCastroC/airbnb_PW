@@ -1,3 +1,4 @@
+// src/router/index.ts
 import { createRouter, createWebHistory } from 'vue-router';
 import Profile from '../views/profile.vue';
 import Login from '../components/Login.vue';
@@ -5,7 +6,6 @@ import Register from '../components/Register.vue';
 import ApartmentsView from '../views/ApartmentsView.vue';
 
 const routes = [
-  // { path: '/', name: 'Home', component: Home },
   {path: '/', name: 'Apartments', component: ApartmentsView},
   { path: '/login', name: 'Login', component: Login },
   { path: '/register', name: 'Register', component: Register },
@@ -17,15 +17,4 @@ const router = createRouter({
   routes,
 });
 
-// Protege la ruta del perfil si el usuario no está autenticado
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = sessionStorage.getItem('user');
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next({ name: 'Login' });
-  } else {
-    next();
-  }
-});
-
 export default router;
-

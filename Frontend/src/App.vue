@@ -1,33 +1,36 @@
+<!-- src/App.vue -->
 <template>
-  <div>
-    <nav>
-      <router-link to="/">Apartamentos</router-link>
-      <router-link v-if="!userStore.user" to="/login">Login</router-link>
-      <router-link v-if="!userStore.user" to="/register">Register</router-link>
-      <button v-if="userStore.user" @click="userStore.logout">Logout</button>
-      <router-link v-if="userStore.user" to="/profile">Profile</router-link>
-    </nav>
-    <router-view />
+  <div id="app">
+    <Header />
+    <!-- El encabezado fijo -->
+    <main class="content">
+      <!-- Contenido principal -->
+      <router-view />
+      <!-- Aquí se mostrará el contenido según la ruta actual -->
+    </main>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { useUserStore } from './stores/userStore';
+import { defineComponent } from 'vue'
+import Header from './components/Header.vue' // Importa el componente Header
 
 export default defineComponent({
-  setup() {
-    const userStore = useUserStore();
-    return { userStore };
-  }
-});
+  name: 'App',
+  components: {
+    Header, // Declara el componente Header para usarlo en el template
+  },
+})
 </script>
 
-<style scoped>
-/* Estilos de navegación */
-nav {
-  display: flex;
-  gap: 1rem;
+<style>
+#app {
+  font-family: Arial, sans-serif;
+  color: #2c3e50;
+}
+
+/* Asegura que el contenido no quede oculto detrás del encabezado */
+.content {
+  margin-top: 70px; /* Ajusta este valor según la altura de tu encabezado */
 }
 </style>
-

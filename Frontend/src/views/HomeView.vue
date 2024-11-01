@@ -3,7 +3,11 @@
   <div>
     <h1>Available Apartments</h1>
     <div v-if="apartments.length">
-      <div v-for="apartment in apartments" :key="apartment.id" class="apartment">
+      <div
+        v-for="apartment in apartments"
+        :key="apartment.id"
+        class="apartment"
+      >
         <h3>{{ apartment.name }}</h3>
         <p>{{ apartment.description }}</p>
         <button @click="goToDetails(apartment.id)">View Details</button>
@@ -14,28 +18,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineComponent, ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'HomeView',
   setup() {
-    const apartments = ref([]);
-    const router = useRouter();
+    const apartments = ref([])
+    const router = useRouter()
 
     // Fetch apartments data on component mount
     onMounted(async () => {
-      const response = await fetch('https://mockapi.io/apartments');
-      apartments.value = await response.json();
-    });
+      const response = await fetch('https://mockapi.io/apartments')
+      apartments.value = await response.json()
+    })
 
     function goToDetails(id: number) {
-      router.push({ name: 'ApartmentDetails', params: { id } });
+      router.push({ name: 'ApartmentDetails', params: { id } })
     }
 
-    return { apartments, goToDetails };
+    return { apartments, goToDetails }
   },
-});
+})
 </script>
 
 <style scoped>
@@ -45,4 +49,3 @@ export default defineComponent({
   margin: 0.5rem 0;
 }
 </style>
-
