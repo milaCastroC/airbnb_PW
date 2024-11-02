@@ -13,6 +13,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import ApartmentCard from '../components/ApartmentCard.vue'
 import { useApartmentStore } from '../stores/apartmentStore'
 
@@ -21,6 +22,12 @@ export default defineComponent({
   components: { ApartmentCard },
   setup() {
     const apartmentStore = useApartmentStore()
+    const router = useRouter()
+
+    // Función para navegar a los detalles de un apartamento
+    function goToApartmentDetails(id: string) {
+      router.push({ name: 'ApartmentDetails', params: { id } })
+    }
 
     onMounted(() => {
       apartmentStore.fetchAllApartments()
@@ -30,7 +37,9 @@ export default defineComponent({
       apartments: computed(() => apartmentStore.apartments),
       loading: computed(() => apartmentStore.loading),
       error: computed(() => apartmentStore.error),
+      goToApartmentDetails,
     }
   },
 })
 </script>
+

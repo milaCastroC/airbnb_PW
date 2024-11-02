@@ -1,16 +1,16 @@
 <!-- AparmentCard.vue -->
 <template>
-  <div class="apartment-container">
+  <div class="apartment-container" @click="goToDetails">
     <h3 class="title">{{ apartment.title }}</h3>
     <img :src="apartment.img" :alt="apartment.title" />
     <p>{{ apartment.description }}</p>
-    <p>{{ apartment.price }}</p>
-    <p>{{ apartment.description }}</p>
+    <p>Precio por noche: ${{ apartment.price }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
+import { useRouter } from 'vue-router'
 import type { Apartment } from '../interfaces/Apartment'
 
 export default defineComponent({
@@ -21,8 +21,19 @@ export default defineComponent({
       required: true,
     },
   },
+  setup(props) {
+    const router = useRouter()
+
+    const goToDetails = () => {
+      console.log(`Clicked on apartment with ID: ${props.apartment.id}`)
+      router.push({ name: 'ApartmentDetails', params: { id: props.apartment.id } })
+    }
+
+    return { goToDetails }
+  },
 })
 </script>
+
 
 <style scoped>
 .apartment-container {
