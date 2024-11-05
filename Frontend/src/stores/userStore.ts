@@ -1,3 +1,4 @@
+/*Frontend/src/stores/userStore*/
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
 import { useRouter } from 'vue-router';
