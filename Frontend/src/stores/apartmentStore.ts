@@ -2,7 +2,7 @@
 
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { getAllApartments } from "../services/apartmentService";
+import { getAllApartments, getApartmentByID } from "../services/apartmentService";
 import type { Apartment } from "../interfaces/Apartment";
 
 export const useApartmentStore = defineStore(
@@ -24,11 +24,18 @@ export const useApartmentStore = defineStore(
             }
         }
 
+        const getApartment = async (idApartment:string): Promise<Apartment> =>{
+            const apartment: Apartment = await getApartmentByID(idApartment);
+            return apartment;
+        }
+        
+
         return {
             apartments,
             loading,
             error,
-            fetchAllApartments
+            fetchAllApartments,
+            getApartment
         }
     }
 

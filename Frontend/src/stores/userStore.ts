@@ -7,6 +7,7 @@ import { getUserByEmail } from '../services/userService';
 
 export const useUserStore = defineStore('user', () => {
     const user: Ref<User | null> = ref(null);
+    const error = ref('');
 
   // Recupera el usuario almacenado en la sesión (si existe) y lo asigna a `user`
   const storedUser = sessionStorage.getItem('user');
@@ -17,19 +18,22 @@ export const useUserStore = defineStore('user', () => {
   const router = useRouter();
 
   async function login(email: string, password: string) {
-    const response = await getUserByEmail(email, password);
-    if (response) {
+    const response = await getUserByEmail(email);
+    if (response ) {
       user.value = response;
       sessionStorage.setItem('user', JSON.stringify(response));
       router.push({ name: 'Profile' });
+      console.log(response);
+
     } else {
       alert('Login failed: Invalid email or password');
     }
   }
 
+  const validatePassword = (userPassword:string, password:string) => userPassword == password;
+
   async function register(name: string, email: string, password: string) {
-    const newUser:User = {
-        id: "1",
+    const newUser: Omit<User, 'id'> = {
         name: name,
         email: email,
         password: password,
@@ -50,7 +54,7 @@ export const useUserStore = defineStore('user', () => {
   function logout() {
     user.value = null;
     sessionStorage.removeItem('user');
-    router.push({ name: 'Home' });
+    router.push({ name: 'Apartments' });
   }
 
   return { user, login, register, logout };

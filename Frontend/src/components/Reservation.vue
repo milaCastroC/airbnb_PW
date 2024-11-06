@@ -1,6 +1,5 @@
 <!-- src/views/ReservationForm.vue -->
 <template>
-  <header />
   <div class="reservation-form">
     <h2>Reservar Apartamento</h2>
     <form @submit.prevent="submitReservation">
@@ -21,8 +20,8 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { createReservation } from '../api/reservation';
 import { useUserStore } from '../stores/userStore';
+import { useReservationStore } from '../stores/reservationStore';
 
 
 export default defineComponent({
@@ -34,6 +33,7 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
     const userStore = useUserStore();
+    const reservationStore = useReservationStore();
 
     async function submitReservation() {
       if (!userStore.user) {
@@ -42,19 +42,23 @@ export default defineComponent({
         return;
       }
 
-      const reservationData = {
-        apartmentId: route.params.id,
-        userId: userStore.user.id,
-        startDate,
-        endDate,
-      };
-
-      try {
-        await createReservation(reservationData);
-        router.push({ name: 'UserReservations' }); // Redirige a las reservas del usuario
-      } catch (err) {
+      try{
+        await reservationStore.createNewReservation(
+          route.params.id.toString(), 
+          userStore.user.id, 
+          startDate.value, 
+          endDate.value
+        );
+        //ENVIAR AL INICIO O AL PERFIL
+      }catch(err){
         error.value = 'Error al hacer la reserva. Por favor, inténtalo de nuevo.';
       }
+      // try {
+      //   await createReservation(reservationData);
+      //   router.push({ name: 'UserReservations' }); // Redirige a las reservas del usuario
+      // } catch (err) {
+      //   error.value = 'Error al hacer la reserva. Por favor, inténtalo de nuevo.';
+      // }
     }
 
     return {

@@ -8,9 +8,9 @@
         :key="reservation.id"
         class="reservation"
       >
-        <h3>{{ reservation.apartment.name }}</h3>
-        <p>Check-in: {{ reservation.checkIn }}</p>
-        <p>Check-out: {{ reservation.checkOut }}</p>
+        <!-- <h3>{{ apartmentStore.getApartment(reservation.apartmentId)?. }}</h3> -->
+        <p>Check-in: {{ reservation.startDate }}</p>
+        <p>Check-out: {{ reservation.endDate }}</p>
       </div>
     </div>
     <p v-else>You have no reservations yet.</p>
@@ -18,26 +18,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent, onMounted, computed } from 'vue'
 import { useUserStore } from '../stores/userStore'
+import { useReservationStore } from '../stores/reservationStore';
+import { useApartmentStore } from '../stores/apartmentStore';
 
 export default defineComponent({
   name: 'Profile',
   setup() {
-    const reservations = ref([])
-    const userStore = useUserStore()
+    //const reservations = ref([])
+    const userStore = useUserStore();
+    const reservationStore = useReservationStore();
+    const apartmentStore = useApartmentStore();
+    
 
     onMounted(async () => {
       const userId = userStore.user?.id
       if (userId) {
-        const response = await fetch(
-          `https://mockapi.io/users/${userId}/reservations`,
-        )
-        reservations.value = await response.json()
-      }
-    })
+        // const response = await fetch(
+        //   `https://mockapi.io/users/${userId}/reservations`,
+        // )
+        // reservations.value = await response.json()
+        await reservationStore.fetchUserReservation(userId);
 
-    return { reservations }
+      }
+    });
+
+
+    return { 
+      reservations: computed(() => reservationStore.reservations),
+      apartmentStore
+    }
   },
 })
 </script>
