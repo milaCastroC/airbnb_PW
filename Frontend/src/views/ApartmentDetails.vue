@@ -51,51 +51,108 @@
 
 <style scoped>
 .apartment-details {
-  max-width: 800px; /* Ancho máximo para el contenedor */
-  margin: 100px auto; /* Centrar el contenedor y dejar espacio arriba */
-  padding: 20px; /* Espaciado interno */
-  background-color: #f9f9f9; /* Color de fondo claro */
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
-  justify-items: center;
+  max-width: 1000px;
+  margin: 80px auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.apartment-details:hover {
+  transform: translateY(-5px);
 }
 
 .apartment-image {
-  width: 100%; /* Ancho completo del contenedor */
-  height: auto; /* Mantener la proporción de la imagen */
-  border-radius: 8px; /* Bordes redondeados para la imagen */
-  margin-bottom: 20px; /* Espacio debajo de la imagen */
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.apartment-image:hover {
+  transform: scale(1.02);
 }
 
 h1 {
-  font-size: 2rem; /* Tamaño de fuente grande para el título */
-  margin: 15px 0; /* Espaciado superior e inferior */
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 20px 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
 }
 
 p {
-  font-size: 1.2rem; /* Tamaño de fuente moderado */
-  color: #555; /* Color gris para el texto */
-  margin: 10px 0; /* Espacio vertical entre párrafos */
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #596677;
+  margin: 16px 0;
+}
+
+p:has(+ .reserve-button) {
+  margin-bottom: 30px;
 }
 
 .reserve-button {
-  margin-top: 20px; /* Espacio superior para el botón */
-  padding: 10px 15px; /* Espaciado interno del botón */
-  background-color: #2980b9; /* Color de fondo del botón */
-  color: #fff; /* Color del texto del botón */
-  border: none; /* Sin borde */
-  border-radius: 5px; /* Bordes redondeados para el botón */
-  cursor: pointer; /* Cambia el cursor al pasar el mouse */
-  transition: background-color 0.3s; /* Transición suave del color de fondo */
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(41, 128, 185, 0.3);
 }
 
 .reserve-button:hover {
-  background-color: #1a6698; /* Color más oscuro al pasar el mouse */
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(41, 128, 185, 0.4);
+}
+
+.reserve-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 10px rgba(41, 128, 185, 0.3);
 }
 
 .loading {
-  text-align: center; /* Centrar el texto de carga */
-  font-size: 1.5rem; /* Tamaño de fuente grande para el mensaje de carga */
-  color: #888; /* Color gris para el texto de carga */
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .apartment-details {
+    margin: 40px 20px;
+    padding: 20px;
+  }
+
+  .apartment-image {
+    height: 300px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .reserve-button {
+    width: 100%;
+    padding: 12px 20px;
+  }
 }
 </style>

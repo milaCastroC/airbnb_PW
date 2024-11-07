@@ -14,7 +14,7 @@
         <div class="reservation-details">
           <p><strong>Ingreso:</strong> {{ reservation.startDate }}</p>
           <p><strong>Salida:</strong> {{ reservation.endDate }}</p>
-          <p><strong>Valor total:</strong> {{ reservation.totalAmount }}</p>
+          <p><strong>Valor total: $</strong> {{ reservation.totalAmount }}</p>
         </div>
         <div class="cancel-reservation">
           <button class="cancel-button" @click="reservationStore.deleteReservation(reservation.id)">Eliminar Reserva</button>
@@ -66,89 +66,172 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .profile {
-  font-family: Arial, sans-serif;
-  padding: 2rem;
-  background-color: #181818;
-  color: #333;
+  padding: 40px;
+  background-color: #f8fafc;
+  min-height: 100vh;
 }
 
 h1 {
+  color: #2c3e50;
+  font-size: 2.4em;
+  font-weight: 600;
   text-align: center;
-  color: #007bff;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 40px;
+  letter-spacing: 0.3px;
 }
 
 .reservations-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .reservation-card {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s;
+  transition: all 0.3s ease;
+  border: 1px solid #e1e8ef;
 }
 
 .reservation-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
 }
 
 .apartment-title {
-  font-size: 1.25rem;
-  margin: 0.5rem;
-  color: #333;
+  font-size: 1.4rem;
+  margin: 16px;
+  color: #2c3e50;
   text-align: center;
+  font-weight: 600;
 }
 
 .image-apartment {
-  height: 200px;
+  height: 220px;
   overflow: hidden;
+  position: relative;
 }
 
 .image-apartment img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.reservation-card:hover .image-apartment img {
+  transform: scale(1.05);
 }
 
 .reservation-details {
-  padding: 1rem;
-  border-top: 1px solid #ddd;
-  font-size: 0.9rem;
-  color: #555;
+  padding: 20px;
+  border-top: 1px solid #e1e8ef;
+  font-size: 1rem;
+  color: #64748b;
+}
+
+.reservation-details p {
+  margin: 12px 0;
+  line-height: 1.5;
+}
+
+.reservation-details strong {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-right: 8px;
 }
 
 .cancel-reservation {
+  padding: 20px;
+  border-top: 1px solid #e1e8ef;
   text-align: center;
-  padding: 1rem;
-  border-top: 1px solid #ddd;
 }
 
 .cancel-button {
-  background-color: #dc3545;
-  color: #fff;
+  width: 100%;
+  padding: 12px 24px;
+  background-color: #e74c3c;
+  color: #ffffff;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
 }
 
 .cancel-button:hover {
-  background-color: #c82333;
+  background-color: #c0392b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+}
+
+.cancel-button:active {
+  transform: translateY(0);
 }
 
 .no-reservations {
   text-align: center;
-  font-size: 1.1rem;
-  color: #777;
+  font-size: 1.2rem;
+  color: #64748b;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 40px auto;
 }
 
+@media (max-width: 768px) {
+  .profile {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 30px;
+  }
+
+  .reservations-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .apartment-title {
+    font-size: 1.2rem;
+  }
+
+  .image-apartment {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+
+  .reservations-list {
+    grid-template-columns: 1fr;
+  }
+
+  .reservation-card {
+    margin-bottom: 20px;
+  }
+
+  .image-apartment {
+    height: 160px;
+  }
+}
 </style>

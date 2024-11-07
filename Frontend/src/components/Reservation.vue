@@ -49,6 +49,7 @@ export default defineComponent({
           startDate.value, 
           endDate.value
         );
+        
         //ENVIAR AL INICIO O AL PERFIL
       }catch(err){
         error.value = reservationStore.error ||'Error al hacer la reserva. Por favor, inténtalo de nuevo.';
@@ -68,51 +69,123 @@ export default defineComponent({
 
 <style scoped>
 .reservation-form {
-  max-width: 600px;
-  margin: 100px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin: 40px auto;
 }
 
-.reservation-form h2 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
+h2 {
+  color: #2c3e50;
+  font-size: 2.2em;
+  margin-bottom: 30px;
+  font-weight: 600;
+  text-align: center;
+}
+
+form {
+  width: 100%;
 }
 
 form div {
-  margin-bottom: 15px;
+  margin-bottom: 24px;
 }
 
 label {
   display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 0.95em;
+  letter-spacing: 0.3px;
 }
 
 input[type="date"] {
   width: 100%;
-  padding: 8px;
-  font-size: 1rem;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border: 2px solid #e1e8ef;
+  border-radius: 8px;
+  font-size: 1em;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
+}
+
+input[type="date"]:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  background-color: #ffffff;
 }
 
 .reserve-button {
-  padding: 10px 15px;
-  background-color: #2980b9;
-  color: #fff;
+  width: 100%;
+  padding: 14px;
+  background-color: #3498db;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1.1em;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  letter-spacing: 0.5px;
 }
 
 .reserve-button:hover {
-  background-color: #1a6698;
+  background-color: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(41, 128, 185, 0.2);
+}
+
+.reserve-button:active {
+  transform: translateY(0px);
 }
 
 .error {
-  color: red;
-  margin-top: 10px;
+  color: #e74c3c;
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.95em;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .reservation-form {
+    margin: 20px auto;
+    padding: 24px;
+  }
+
+  h2 {
+    font-size: 1.8em;
+    margin-bottom: 24px;
+  }
+
+  input[type="date"] {
+    padding: 10px 14px;
+  }
+
+  .reserve-button {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reservation-form {
+    margin: 10px;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.6em;
+  }
 }
 </style>

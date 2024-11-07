@@ -37,39 +37,114 @@ export default defineComponent({
 
 <style scoped>
 .apartment-container {
-  border: 1px solid #ddd; /* Borde suave alrededor de la tarjeta */
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
-  padding: 16px;
-  max-width: 300px; /* Ancho fijo para la tarjeta */
-  margin: 16px auto; /* Espacio alrededor de la tarjeta */
-  text-align: center; /* Centra el contenido */
-  background-color: #fff; /* Fondo blanco */
+  position: relative;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 26px; 
 }
 
-.apartment-container .title {
+.apartment-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.title {
   font-size: 1.25rem;
-  font-weight: bold;
-  color: #333; /* Color del título */
-  margin-bottom: 8px; /* Espacio debajo del título */
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+  height: 2.8em;
 }
 
-.apartment-container img {
-  width: 100%; /* Imagen ajustada al ancho del contenedor */
-  height: auto;
-  border-radius: 4px; /* Bordes suaves en la imagen */
-  margin-bottom: 12px;
+img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  padding: 8px; 
 }
 
-.apartment-container p {
-  color: #555; /* Color del texto */
-  margin: 4px 0; /* Espacio vertical entre párrafos */
-  font-size: 1rem; /* Tamaño de letra */
+.apartment-container:hover img {
+  transform: scale(1.05);
 }
 
-.apartment-container p:last-of-type {
-  font-weight: bold;
-  color: #008080; /* Color especial para el precio */
+p {
+  padding: 0 16px;
+  margin: 12px 0;
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+p:first-of-type {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 4.5em;
+}
+
+p:last-of-type {
+  margin-top: auto; 
+  padding: 16px;
+  font-weight: 600;
+  color: #2980b9;
   font-size: 1.1rem;
+  background: linear-gradient(to bottom, transparent, rgba(241, 245, 249, 0.5));
+  border-top: 1px solid #f1f5f9;
+}
+
+.apartment-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 70%,
+    rgba(0, 0, 0, 0.02)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.apartment-container:hover::after {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.2rem;
+  }
+
+  img {
+    height: 200px;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  p:last-of-type {
+    font-size: 1rem;
+  }
 }
 </style>
+
