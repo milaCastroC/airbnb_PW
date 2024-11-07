@@ -18,15 +18,22 @@ export const useUserStore = defineStore('user', () => {
   const router = useRouter();
 
   async function login(email: string, password: string) {
-    const response = await getUserByEmail(email);
-    if (response ) {
-      user.value = response;
-      sessionStorage.setItem('user', JSON.stringify(response));
-      router.push({ name: 'Profile' });
-      console.log(response);
+    
+    try{
+      const response = await getUserByEmail(email);
 
-    } else {
-      alert('Login failed: Invalid email or password');
+      if (response && validatePassword(response.password, password)) {
+        user.value = response;
+        sessionStorage.setItem('user', JSON.stringify(response));
+        router.push({ name: 'Profile' });
+        console.log(response);
+  
+      } else {
+        alert('Correo o contraseña incorrectos');
+      }
+    }catch(err){
+      alert('Correo o contraseña incorrectos');
+      error.value = 'Correo o contraseña incorrectos'
     }
   }
 

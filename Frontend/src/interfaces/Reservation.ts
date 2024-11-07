@@ -1,3 +1,4 @@
+//Reservation.ts
 export interface Reservation {
     id: string;
     apartmentId: string;

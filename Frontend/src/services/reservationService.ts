@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { type AxiosResponse } from "axios";
 import type { Reservation } from "../interfaces/Reservation";
 
 export async function getReservasByUser(idUser: string): Promise<Reservation[]> {
@@ -15,3 +15,9 @@ export async function getReservasByApartment(idApartment: string): Promise<Reser
     return response.data;
 }
 
+export async function  deleteReservationById(idReservation:string): Promise<AxiosResponse> {
+    const response = await axios.delete(
+        `https://672b97d81600dda5a9f5a74e.mockapi.io/Reservation/${idReservation}`
+    );
+    return response;
+}

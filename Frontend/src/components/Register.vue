@@ -3,7 +3,7 @@
     <h1>Registro</h1>
     <form @submit.prevent="handleRegister">
       <label for="name">Nombre</label>
-      <input v-model="name" required />
+      <input v-model="name" class="name" required />
 
       <label for="email">Email:</label>
       <input type="email" v-model="email" required />
@@ -70,7 +70,8 @@ label {
 
 input[type='text'],
 input[type='email'],
-input[type='password'] {
+input[type='password'],
+.name {
   width: 100%; /* Ancho completo */
   padding: 10px; /* Espaciado interno */
   margin-bottom: 20px; /* Separación entre campos */

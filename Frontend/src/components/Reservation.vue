@@ -51,14 +51,9 @@ export default defineComponent({
         );
         //ENVIAR AL INICIO O AL PERFIL
       }catch(err){
-        error.value = 'Error al hacer la reserva. Por favor, inténtalo de nuevo.';
+        error.value = reservationStore.error ||'Error al hacer la reserva. Por favor, inténtalo de nuevo.';
       }
-      // try {
-      //   await createReservation(reservationData);
-      //   router.push({ name: 'UserReservations' }); // Redirige a las reservas del usuario
-      // } catch (err) {
-      //   error.value = 'Error al hacer la reserva. Por favor, inténtalo de nuevo.';
-      // }
+      router.push({ name: 'Reservation' });
     }
 
     return {
