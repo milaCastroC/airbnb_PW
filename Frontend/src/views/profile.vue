@@ -17,7 +17,7 @@
           <p><strong>Valor total:</strong> {{ reservation.totalAmount }}</p>
         </div>
         <div class="cancel-reservation">
-          <button class="cancel-button" @click="reservationStore.deleteReservation(reservation.id)">Cancelar Reserva</button>
+          <button class="cancel-button" @click="reservationStore.deleteReservation(reservation.id)">Eliminar Reserva</button>
         </div>
       </div>
     </div>

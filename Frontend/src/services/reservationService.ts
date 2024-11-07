@@ -1,4 +1,4 @@
-import axios, { type AxiosResponse } from "axios";
+import axios, { isAxiosError, type AxiosResponse } from "axios";
 import type { Reservation } from "../interfaces/Reservation";
 
 export async function getReservasByUser(idUser: string): Promise<Reservation[]> {
@@ -9,10 +9,23 @@ export async function getReservasByUser(idUser: string): Promise<Reservation[]> 
 }
 
 export async function getReservasByApartment(idApartment: string): Promise<Reservation[]> {
-    const response = await axios.get<Reservation[]>(
-        `https://6706e6d9a0e04071d2289d9a.mockapi.io/Reservation?apartmentId=${idApartment}`
-    )
-    return response.data;
+    try{
+        const response = await axios.get<Reservation[]>(
+            `https://672b97d81600dda5a9f5a74e.mockapi.io/Reservation?apartmentId=${idApartment}`
+    
+        )
+        console.log(response)
+        return response.data;
+    }catch (error) {
+        if (isAxiosError(error)) {
+            if (error.response?.status === 404) {
+                return []; // Retorna un array vacío si no hay reservas
+            }
+            throw new Error(`Error del servidor: ${error.message}`);
+        }
+        throw error;
+    }
+    
 }
 
 export async function  deleteReservationById(idReservation:string): Promise<AxiosResponse> {

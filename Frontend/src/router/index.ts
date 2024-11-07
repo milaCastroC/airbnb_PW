@@ -8,7 +8,7 @@ import ApartmentDetails from '../views/ApartmentDetails.vue';
 import Reservation from '../components/Reservation.vue';
 
 const routes = [
-  {path: '/', name: 'Apartments', component: ApartmentsView},
+  { path: '/', name: 'Apartments', component: ApartmentsView},
   { path: '/login', name: 'Login', component: Login },
   { path: '/register', name: 'Register', component: Register },
   { path: '/profile', name: 'Profile', component: Profile, meta: { requiresAuth: true } },

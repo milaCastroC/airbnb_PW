@@ -12,7 +12,6 @@ export const useReservationStore = defineStore('reservationStore', () =>{
     const reservations = ref<Reservation[]>([]);
     const loading = ref(false);
     const error = ref<string | null>(null);
-    const apartmentReservations = ref<Reservation[]>([]);
 
     const fetchUserReservation = async(idUser: string) =>{
         reservations.value = [];
@@ -31,16 +30,19 @@ export const useReservationStore = defineStore('reservationStore', () =>{
 
     
     async function createNewReservation(apartmentId:string, userId:string, startDate:string, endDate:string) {
-        await fetchApartmentReservations(apartmentId);
 
-        if (!isDateRangeAvailable(startDate, endDate)) {
-            alert('La reserva no puede ser creada. Las fechas se solapan con otra reserva existente.');
-            error.value ='La reserva no puede ser creada. Las fechas se solapan con otra reserva existente.';
-            console.error(error.value)
-            return;
-        } else if(!validateDates(startDate, endDate)){
+
+        if (!validateDates(startDate, endDate)) {
             return;
         }
+
+        const hasOverlap = await checkReservationOverlap(apartmentId, startDate, endDate);
+        if (hasOverlap) {
+            error.value = 'La reserva no puede ser creada. Las fechas se solapan con otra reserva existente.';
+            alert('La reserva no puede ser creada. Las fechas se solapan con otra reserva existente.');
+            return;
+        }
+
         const totalAmount = await calculateTotalAmount(apartmentId, startDate, endDate);
 
         const newReservation: Omit<Reservation, 'id'> = {
@@ -62,6 +64,7 @@ export const useReservationStore = defineStore('reservationStore', () =>{
           } else {
             alert('No se pudo registrar la reserva');
           }
+
     }
 
     const calculateTotalAmount = async(apartmentId:string, startDate: string, endDate: string) : Promise<number> =>{
@@ -92,29 +95,33 @@ export const useReservationStore = defineStore('reservationStore', () =>{
         }
     }
 
-    const fetchApartmentReservations = async (apartmentId: string) => {
-        apartmentReservations.value = [];
-        loading.value = true;
 
+    async function checkReservationOverlap(apartmentId: string, startDate: string, endDate: string): Promise<boolean> {
         try {
-            apartmentReservations.value = await getReservasByApartment(apartmentId);
-        } catch (err) {
-            error.value = 'Error al cargar reservas del apartamento';
-            console.error(error);
-        } finally {
-            loading.value = false;
+            const existingReservations = await getReservasByApartment(apartmentId);
+            const newStartDate = new Date(startDate).getTime();
+            const newEndDate = new Date(endDate).getTime();
+    
+            // Verifica si hay alguna reserva existente que se solape con las nuevas fechas
+            const hasOverlap = existingReservations.some(reservation => {
+                const existingStartDate = new Date(reservation.startDate).getTime();
+                const existingEndDate = new Date(reservation.endDate).getTime();
+    
+                return (
+                    (newStartDate >= existingStartDate && newStartDate < existingEndDate) || // La nueva fecha de inicio está dentro de una reserva existente
+                    (newEndDate > existingStartDate && newEndDate <= existingEndDate) || // La nueva fecha de fin está dentro de una reserva existente
+                    (newStartDate <= existingStartDate && newEndDate >= existingEndDate) // La nueva reserva engloba completamente una reserva existente
+                );
+            });
+    
+            return hasOverlap;
+        } catch (error) {
+            console.error('Error al verificar solapamiento de reservas:', error);
+            throw error;
         }
-    };
+    }
 
-    const isDateRangeAvailable = (startDate: string, endDate: string): boolean => {
-        const start = new Date(startDate).getTime();
-        const end = new Date(endDate).getTime();
 
-        // Verifica si hay solapamiento de fechas en apartmentReservations
-        return !apartmentReservations.value.some(reservation => 
-            (new Date(reservation.startDate).getTime() <= end && new Date(reservation.endDate).getTime() >= start)
-        );
-    };
 
     const validateDates = (startDate: string, endDate: string): boolean =>{
 
